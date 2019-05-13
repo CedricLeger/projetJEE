@@ -6,6 +6,8 @@
 
 package Forms;
 
+import Bean.Utilisateur;
+import Dao.DaoUtilisateur;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +22,7 @@ public class ConnectionForms {
     private static final String PASSWORD = "password";
     private String result;
     private final Map<String, String> errors = new HashMap<>();
-    DAOUtilisateur daouser = new DAOUtilisateur();
+    DaoUtilisateur daouser = new DaoUtilisateur();
     Utilisateur user = new Utilisateur();
 
     public String getResult() {
@@ -48,11 +50,11 @@ public class ConnectionForms {
         } catch (Exception e) {
             setError(EMAIL, e.getMessage());
         }
-        user.setEmail(email);
+        user.setMail(email);
         /* Validation du champ mot de passe. */
         try {
             validatePassword(pwd);
-            verifierPassword(email,pwd);
+            //verifierPassword(email,pwd);
         } catch (Exception e) {
             setError(PASSWORD, e.getMessage());
         }
@@ -76,7 +78,7 @@ public class ConnectionForms {
         } else if (!email.matches("([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)")) {
             throw new Exception(
                     "Merci de saisir une adresse mail valide. ");
-        }else if(daouser.find(email)== false)
+        }else if(!daouser.findByEmail(email).equals(email))
         {
             throw new Exception("Cette adresse n'existe pas veuillez crée une compte avant de vous connecter");
         }
@@ -119,12 +121,12 @@ contenu
             return value.trim();
         }
     }
-     private void verifierPassword(String email,String password) throws Exception{
+     /*private void verifierPassword(String email,String password) throws Exception{
          
          if(!daouser.findlog(email,password)){
             
            throw new Exception("Votre mot de passe ne correspond pas votre email");
          }
-         }
+         }*/
      }
 
