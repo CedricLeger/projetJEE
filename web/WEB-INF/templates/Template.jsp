@@ -10,9 +10,9 @@
         </c:if>
     </head>
     <body>
-        <header>
+        <header><center>
             <jsp:include page="/WEB-INF/templates/Header.jsp" />
-        </header>
+            </center> </header>
         <section id="content">
             <jsp:include page="/WEB-INF/view/${param.content}.jsp" />
         </section>

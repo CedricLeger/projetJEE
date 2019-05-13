@@ -16,8 +16,8 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author Expression Cedric is undefined on line 12, column 14 in Templates/Classes/Class.java.
  */
+
 public class InscriptionForms {
-public class InscriptionForm {
 
     private static final String EMAIL_FIELD = "email";
     private static final String PASSWORD_FIELD = "password";
@@ -144,4 +144,4 @@ public class InscriptionForm {
     }
 
 }
-}
+

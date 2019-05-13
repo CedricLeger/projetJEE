@@ -6,7 +6,7 @@
 <section>
     <form method="post" action="connection">
         <fieldset>
-            <legend>Connexion</legend>
+            <legend>Connection</legend>
             <p>Vous pouvez vous connecter via ce formulaire.</p>
             <label for="email">Adresse email <span class="requis">*</span></label>
             <input type="email" id="email" name="email" value="<c:out value="${requestScope.user.email}" />" size="20" maxlength="60" />
@@ -14,7 +14,7 @@
             <br /><label for="password">Mot de passe <span class="requis">*</span></label>
             <input type="password" id="password" name="password" value="" size="20" maxlength="20" />
             <span class="error">${requestScope.form.errors['password']}</span>
-            <br /><input type="submit" value="Connexion" class="noLabel" />
+            <br /><input type="submit" value="Connection" class="noLabel" />
             <p class="${empty requestScope.form.errors ? 'success' : 'error'}">${requestScope.form.result}</p>
             <p class="error">${requestScope.form.errors.errorMessage}</p>
         </fieldset>

@@ -5,7 +5,7 @@
 --%>
 
 <jsp:include page="/WEB-INF/templates/Template.jsp">
-    <jsp:param name="title" value="Connexion" />
+    <jsp:param name="title" value="Connection" />
     <jsp:param name="content" value="connectionContent" />
     <jsp:param name="cssFiles" value="form" />
 </jsp:include>
