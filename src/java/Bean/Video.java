@@ -13,7 +13,7 @@ import java.util.Date;
  */
 public class Video {
     private int pk_id_video, positive_vote, negative_vote;
-    private String titre_video, descrption_video, lien_video;
+    private String titre_video, description_video, lien_video;
     private double score;
     private int fk_id_utilisateur;
     private Date date_video;
@@ -21,23 +21,23 @@ public class Video {
     public Video() {
     }
 
-    public Video(int pk_id_video, int positive_vote, int negative_vote, String titre_video, String descrption_video, String lien_video, double score, Date date_video) {
+    public Video(int pk_id_video, int positive_vote, int negative_vote, String titre_video, String description_video, String lien_video, double score, Date date_video) {
         this.pk_id_video = pk_id_video;
         this.positive_vote = positive_vote;
         this.negative_vote = negative_vote;
         this.titre_video = titre_video;
-        this.descrption_video = descrption_video;
+        this.description_video = description_video;
         this.lien_video = lien_video;
         this.score = score;
         this.date_video = date_video;
     }
 
-    public Video(int pk_id_video, int positive_vote, int negative_vote, String titre_video, String descrption_video, String lien_video, double score, int fk_id_utilisateur, Date date_video) {
+    public Video(int pk_id_video, int positive_vote, int negative_vote, String titre_video, String description_video, String lien_video, double score, int fk_id_utilisateur, Date date_video) {
         this.pk_id_video = pk_id_video;
         this.positive_vote = positive_vote;
         this.negative_vote = negative_vote;
         this.titre_video = titre_video;
-        this.descrption_video = descrption_video;
+        this.description_video = description_video;
         this.lien_video = lien_video;
         this.score = score;
         this.fk_id_utilisateur = fk_id_utilisateur;
@@ -104,12 +104,12 @@ public class Video {
         this.titre_video = titre_video;
     }
 
-    public String getDescrption_video() {
-        return descrption_video;
+    public String getDescription_video() {
+        return description_video;
     }
 
-    public void setDescrption_video(String descrption_video) {
-        this.descrption_video = descrption_video;
+    public void setDescription_video(String description_video) {
+        this.description_video = description_video;
     }
 
    
@@ -155,6 +155,11 @@ public class Video {
 
     public void setId_utilisateur(int fk_id_utilisateur) {
         this.fk_id_utilisateur = fk_id_utilisateur;
+    }
+
+    @Override
+    public String toString() {
+        return "Video{" + "pk_id_video=" + pk_id_video + ", positive_vote=" + positive_vote + ", negative_vote=" + negative_vote + ", titre_video=" + titre_video + ", description_video=" + description_video + ", lien_video=" + lien_video + ", score=" + score + ", fk_id_utilisateur=" + fk_id_utilisateur + ", date_video=" + date_video + '}';
     }
     
     

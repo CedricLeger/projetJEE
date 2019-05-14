@@ -1,26 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-
+    <servlet-mapping>
+        <servlet-name>AjoutVideo</servlet-name>
+        <url-pattern>/AjoutVideo</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-    
     <welcome-file-list>
         <welcome-file>Index</welcome-file>
     </welcome-file-list>
-     <jsp-config>
+    <jsp-config>
         <jsp-property-group>
             <url-pattern>*.jsp</url-pattern>
             <include-prelude>/WEB-INF/taglibs.jsp</include-prelude>
         </jsp-property-group>
     </jsp-config>
-        <servlet>
+    <servlet>
         <servlet-name>Index</servlet-name>
         <servlet-class>Servlet.Index</servlet-class>
     </servlet>
-        <servlet-mapping>
+    <servlet>
+        <servlet-name>AjoutVideo</servlet-name>
+        <servlet-class>Servlet.AjoutVideo</servlet-class>
+    </servlet>
+    <servlet-mapping>
         <servlet-name>Index</servlet-name>
         <url-pattern>/Index</url-pattern>
     </servlet-mapping>
@@ -29,7 +35,6 @@
         <servlet-name>Inscription</servlet-name>
         <servlet-class>Servlet.Inscription</servlet-class>
     </servlet>
-  
     <servlet-mapping>
         <servlet-name>Inscription</servlet-name>
         <url-pattern>/inscription</url-pattern>
@@ -52,5 +57,4 @@
         <servlet-name>Logout</servlet-name>
         <url-pattern>/Logout</url-pattern>
     </servlet-mapping>
-
 </web-app>

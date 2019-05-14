@@ -49,12 +49,13 @@ public class DaoVideo implements Dao<Video>{
 
     @Override
     public Video create(Video obj) {
+        System.out.println(obj);
         Video retObj=null;
         // requete SQL : Attention aux espaces !
         String sql = "INSERT INTO "
                + table
-               + " (lien_video,positive_vote,negative_vote,titre_video,description_video,score) "
-               + " VALUES (?,?,?,?,?,?) ";
+               + " (lien_video,positive_vote,negative_vote,titre_video,description_video,score,	fk_id_utilisateur) "
+               + " VALUES (?,?,?,?,?,?,?) ";
         
         try {
             PreparedStatement pstmt = connection.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
@@ -62,8 +63,9 @@ public class DaoVideo implements Dao<Video>{
             pstmt.setInt(2,obj.getPositive());
             pstmt.setInt(3,obj.getNegative());
             pstmt.setString(4,obj.getTitre_video());
-            pstmt.setString(5,obj.getDescrption_video());
+            pstmt.setString(5,obj.getDescription_video());
             pstmt.setDouble(6,obj.getScore());
+            pstmt.setInt(7,obj.getFk_id_utilisateur());
             //il va generer la clef automatiquement pour qu'on puisse plus tard identifier le nv object
             pstmt.executeUpdate(); 
             ResultSet generateKeys = pstmt.getGeneratedKeys();

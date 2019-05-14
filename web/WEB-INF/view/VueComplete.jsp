@@ -4,14 +4,9 @@
     Author     : Dizer
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Vue Complète</title>
-    </head>
-    <body>
-        <h1>Vue Complète</h1>
-    </body>
-</html>
+<jsp:include page="/WEB-INF/templates/Template.jsp">
+    <jsp:param name="title" value="VueCompl�te" />
+    <jsp:param name="content" value="VueCompleteContent" />
+    <jsp:param name="cssFiles" value="form" />
+</jsp:include>
+
