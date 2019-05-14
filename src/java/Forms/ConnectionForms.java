@@ -78,7 +78,7 @@ public class ConnectionForms {
         } else if (!email.matches("([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)")) {
             throw new Exception(
                     "Merci de saisir une adresse mail valide. ");
-        }else if(!daouser.findByEmail(email).equals(email))
+        } else if(!daouser.findMail(email))
         {
             throw new Exception("Cette adresse n'existe pas veuillez crée une compte avant de vous connecter");
         }
@@ -121,12 +121,12 @@ contenu
             return value.trim();
         }
     }
-     /*private void verifierPassword(String email,String password) throws Exception{
+     private void verifierPassword(String email,String password) throws Exception{
          
          if(!daouser.findlog(email,password)){
             
            throw new Exception("Votre mot de passe ne correspond pas votre email");
          }
-         }*/
+         }
      }
 

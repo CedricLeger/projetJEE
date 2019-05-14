@@ -20,14 +20,14 @@ import java.util.logging.Logger;
  */
 public class DaoVideo implements Dao<Video>{
        
-    private final String table= "Videos";
+    private final String table= "videos";
     
     @Override
     public Video find(Integer id) {
     Video retObj=null;
        String sql = "SELECT * FROM "
                + table
-               + " WHERE id_video= ?";
+               + " WHERE pk_id_video= ?";
         try
         {
             PreparedStatement pstmt= connection.prepareStatement(sql);
@@ -37,7 +37,7 @@ public class DaoVideo implements Dao<Video>{
             {
                 retObj = new Video(id ,result.getInt("positive_vote"),result.getInt("negative_vote"),
                         result.getString("titre_video"),result.getString("description_video"),
-                        result.getDouble("score"),result.getInt("id_video") );
+                        result.getDouble("score"),result.getInt("pk_id_video") );
             }
         } catch (SQLException ex)
             {
@@ -52,7 +52,7 @@ public class DaoVideo implements Dao<Video>{
         // requete SQL : Attention aux espaces !
         String sql = "INSERT INTO "
                + table
-               + " (id_video,positive_vote,negative_vote,titre_video,description_video,score,id_utilisateur) "
+               + " (pk_id_video,positive_vote,negative_vote,titre_video,description_video,score,fk_id_utilisateur) "
                + " VALUES (?,?,?,?,?,?,?) ";
         
         try {
@@ -89,7 +89,7 @@ public class DaoVideo implements Dao<Video>{
 
     @Override
     public void delete(Video obj) {
-        String sql= "DELETE FROM " + table + " WHERE id_video=?";
+        String sql= "DELETE FROM " + table + " WHERE pk_id_video=?";
         try {
             PreparedStatement pstmt= connection.prepareStatement(sql);
             pstmt.setInt(1, obj.getId_video());
@@ -115,9 +115,9 @@ public class DaoVideo implements Dao<Video>{
             ResultSet result = pstmt.executeQuery();
             while (result.next())
             {
-                retObj.add(new Video(result.getInt("id_video") ,result.getInt("positive_vote"),result.getInt("negative_vote"),
+                retObj.add(new Video(result.getInt("pk_id_video") ,result.getInt("positive_vote"),result.getInt("negative_vote"),
                         result.getString("titre_video"),result.getString("description_video"),
-                        result.getDouble("score"),result.getInt("id_video")));
+                        result.getDouble("score"),result.getInt("pk_id_video")));
             }
         } catch (SQLException ex)
             {
@@ -126,25 +126,5 @@ public class DaoVideo implements Dao<Video>{
         return retObj;
     }
 
-    
-    /*public List<Video> findByUser() {
-       ArrayList<Video> retObj= new ArrayList<>(); 
-       String sql = "SELECT * FROM "
-               + table
-               + " WHERE report= true ";
-                
-           try {
-              PreparedStatement pstmt = connection.prepareStatement(sql);
-              ResultSet result = pstmt.executeQuery();
-              if (result.next())
-            {
-                retObj.add(new Video(result.getInt("id_comment"),result.getString("text_comment"),
-                        result.getInt("id_video")));
-            }
-           } catch (SQLException ex) {
-               Logger.getLogger(DaoVideo.class.getName()).log(Level.SEVERE, null, ex);
-           }
-           return retObj;
-    }*/
     
 }

@@ -9,11 +9,11 @@
             <legend>Inscription</legend>
             <p>Vous pouvez vous inscrire via ce formulaire.</p>
             <label for="username">Nom d'utilisateur<span class="mandatory">*</label>
-            <input type="text" id="username" name="username" value="<c:out value="${requestScope.user.name}"/>" size="20" maxlength="20" />
+            <input type="text" id="username" name="username" value="<c:out value="${requestScope.user.pseudo}"/>" size="20" maxlength="20" />
             <span class="error">${requestScope.form.errors.username}</span>
             <br/>
             <label for="email">Adresse email <span class="mandatory">*</span></label>
-            <input type="email" id="email" name="email" value="<c:out value="${requestScope.user.email}"/>" size="20" maxlength="60" />
+            <input type="email" id="email" name="email" value="<c:out value="${requestScope.user.mail}"/>" size="20" maxlength="60" />
             <span class="error">${requestScope.form.errors.email}</span>
             <br />
             <label for="password">Mot de passe <span class="mandatory">*</span></label>

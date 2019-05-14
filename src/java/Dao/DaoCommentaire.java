@@ -20,14 +20,14 @@ import java.util.logging.Logger;
  */
 public class DaoCommentaire implements Dao<Commentaire>{
        
-    private final String table= "Commentaire";
+    private final String table= "commentaire";
     
     @Override
     public Commentaire find(Integer id) {
     Commentaire retObj=null;
        String sql = "SELECT * FROM "
                + table
-               + " WHERE id_comment= ?";
+               + " WHERE pk_id_comment= ?";
         try
         {
             PreparedStatement pstmt= connection.prepareStatement(sql);
@@ -35,7 +35,7 @@ public class DaoCommentaire implements Dao<Commentaire>{
             ResultSet result = pstmt.executeQuery();
             if (result.first())
             {
-                retObj = new Commentaire(id , result.getString("text_comment"),result.getInt("id_video") );
+                retObj = new Commentaire(id , result.getString("text_comment"),result.getInt("fk_id_video") );
             }
         } catch (SQLException ex)
             {
@@ -50,7 +50,7 @@ public class DaoCommentaire implements Dao<Commentaire>{
         // requete SQL : Attention aux espaces !
         String sql = "INSERT INTO "
                + table
-               + " (id_comment,text_comment,report,id_video) "
+               + " (pk_id_comment,text_comment,report,fk_id_video) "
                + " VALUES (?,?,?,?) ";
         
         try {
@@ -84,7 +84,7 @@ public class DaoCommentaire implements Dao<Commentaire>{
 
     @Override
     public void delete(Commentaire obj) {
-        String sql= "DELETE FROM " + table + " WHERE id_comment=?";
+        String sql= "DELETE FROM " + table + " WHERE pk_id_comment=?";
         try {
             PreparedStatement pstmt= connection.prepareStatement(sql);
             pstmt.setInt(1, obj.getId_comment());
@@ -110,8 +110,8 @@ public class DaoCommentaire implements Dao<Commentaire>{
             ResultSet result = pstmt.executeQuery();
             while (result.next())
             {
-                retObj.add(new Commentaire(result.getInt("id_comment"),result.getString("text_comment"),
-                       result.getInt("id_video") ));
+                retObj.add(new Commentaire(result.getInt("pk_id_comment"),result.getString("text_comment"),
+                       result.getInt("fk_id_video") ));
             }
         } catch (SQLException ex)
             {
@@ -132,8 +132,8 @@ public class DaoCommentaire implements Dao<Commentaire>{
               ResultSet result = pstmt.executeQuery();
               if (result.next())
             {
-                retObj.add(new Commentaire(result.getInt("id_comment"),result.getString("text_comment"),
-                        result.getInt("id_video")));
+                retObj.add(new Commentaire(result.getInt("pk_id_comment"),result.getString("text_comment"),
+                        result.getInt("fk_id_video")));
             }
            } catch (SQLException ex) {
                Logger.getLogger(DaoCommentaire.class.getName()).log(Level.SEVERE, null, ex);

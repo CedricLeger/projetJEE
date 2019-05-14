@@ -20,14 +20,14 @@ import java.util.logging.Logger;
  */
 public class DaoUtilisateur implements Dao<Utilisateur>{
        
-    private final String table= "Utilisateur";
+    private final String table= "utilisateur";
     
     @Override
     public Utilisateur find(Integer id) {
     Utilisateur retObj=null;
        String sql = "SELECT * FROM "
                + table
-               + " WHERE id_utilisateur= ?";
+               + " WHERE pk_id_utilisateur= ?";
         try
         {
             PreparedStatement pstmt= connection.prepareStatement(sql);
@@ -49,13 +49,9 @@ public class DaoUtilisateur implements Dao<Utilisateur>{
         Utilisateur retObj=null;
         Utilisateur test=null;
         // requete SQL : Attention aux espaces !
-        if (test == findByEmail(obj.getMail()))
-        {
-            throw new RuntimeException("Email déjà existant");
-        }
         String sql = "INSERT INTO "
                + table
-               + " (mail,password,pseudo,id) "
+               + " (mail,password,pseudo,statut) "
                + " VALUES (?,?,?,?) ";
         
         try {
@@ -63,7 +59,7 @@ public class DaoUtilisateur implements Dao<Utilisateur>{
             pstmt.setString(1,obj.getMail());
             pstmt.setString(2,obj.getPassword());
             pstmt.setString(3,obj.getPseudo());
-            pstmt.setInt(4,obj.getId_utilisateur());
+            pstmt.setString(4, obj.getStatut());
             //il va generer la clef automatiquement pour qu'on puisse plus tard identifier le nv object
             pstmt.executeUpdate(); 
             ResultSet generateKeys = pstmt.getGeneratedKeys();
@@ -145,5 +141,52 @@ public class DaoUtilisateur implements Dao<Utilisateur>{
            }
            return retObj;
     }
+    
+    public Boolean findlog(String mail, String password) {
+      Utilisateur retObj= null; 
+       String sql = "SELECT * FROM "
+               + table
+               + " WHERE mail = ? and password= ?";
+                
+           try {
+              PreparedStatement pstmt = connection.prepareStatement(sql);
+              ResultSet result = pstmt.executeQuery();
+              if (result.first())
+            {
+                return true;
+            }
+           } catch (SQLException ex) {
+               Logger.getLogger(DaoUtilisateur.class.getName()).log(Level.SEVERE, null, ex);
+           }
+           return false;
+    }
 
+    public Boolean findMail(String mail) {
+      Boolean retObj= false; 
+       String sql = "SELECT * FROM "
+               + table
+               + " WHERE mail = ? ";
+               
+               try {
+              PreparedStatement pstmt = connection.prepareStatement(sql);
+              pstmt.setString(1, mail);
+              ResultSet result = pstmt.executeQuery();
+              retObj = result.first();
+              
+           } catch (SQLException ex) {
+               Logger.getLogger(DaoUtilisateur.class.getName()).log(Level.SEVERE, null, ex);
+           }
+           return retObj;
+           /*try {
+              PreparedStatement pstmt = connection.prepareStatement(sql);
+              ResultSet result = pstmt.executeQuery();
+              if (result.first())
+            {
+                return true;
+            }
+           } catch (SQLException ex) {
+               Logger.getLogger(DaoUtilisateur.class.getName()).log(Level.SEVERE, null, ex);
+           }
+           return false;*/
+    }
 }

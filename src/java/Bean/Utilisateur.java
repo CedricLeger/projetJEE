@@ -11,7 +11,7 @@ package Bean;
  * @author Expression Cedric is undefined on line 12, column 14 in Templates/Classes/Class.java.
  */
 public class Utilisateur {
-    private Integer id_utilisateur;
+    private Integer pk_id_utilisateur;
     private String mail, password,statut="actif", pseudo;
     private boolean admin=false;
 
@@ -20,15 +20,15 @@ public class Utilisateur {
 
     
     
-    public Utilisateur(int id_utilisateur, String mail, String password, String pseudo) {
-        this.id_utilisateur = id_utilisateur;
+    public Utilisateur(int pk_id_utilisateur, String mail, String password, String pseudo) {
+        this.pk_id_utilisateur = pk_id_utilisateur;
         this.mail = mail;
         this.password = password;
         this.pseudo = pseudo;
     }
 
-    public Utilisateur(int id_utilisateur, String mail, String password, String pseudo, Boolean admin, String statut) {
-        this.id_utilisateur = id_utilisateur;
+    public Utilisateur(int pk_id_utilisateur, String mail, String password, String pseudo, Boolean admin, String statut) {
+        this.pk_id_utilisateur = pk_id_utilisateur;
         this.mail = mail;
         this.password = password;
         this.pseudo = pseudo;
@@ -40,11 +40,11 @@ public class Utilisateur {
     
     
     public Integer getId_utilisateur() {
-        return id_utilisateur;
+        return pk_id_utilisateur;
     }
 
-    public void setId_utilisateur(int id_utilisateur) {
-        this.id_utilisateur = id_utilisateur;
+    public void setId_utilisateur(Integer pk_id_utilisateur) {
+        this.pk_id_utilisateur = pk_id_utilisateur;
     }
 
     public String getMail() {

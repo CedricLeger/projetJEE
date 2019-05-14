@@ -10,36 +10,36 @@ package Bean;
  * @author Sandra
  */
 public class Commentaire {
-    private int id_comment;
+    private int pk_id_comment;
     private String text_comment;
     private boolean report=false;
-    private int id_video;
+    private int fk_id_video;
 
     public Commentaire() {
     }
 
-    public Commentaire(int id_comment, String text_comment, int id_video) {
-        this.id_comment = id_comment;
+    public Commentaire(int pk_id_comment, String text_comment, int fk_id_video) {
+        this.pk_id_comment = pk_id_comment;
         this.text_comment = text_comment;
-        this.id_video = id_video;
+        this.fk_id_video = fk_id_video;
     }
     
-    public Commentaire(int id_comment, String text_comment, boolean report, int id_video) {
-        this.id_comment = id_comment;
+    public Commentaire(int pk_id_comment, String text_comment, boolean report, int fk_id_video) {
+        this.pk_id_comment = pk_id_comment;
         this.text_comment = text_comment;
         this.report = report;
-        this.id_video = id_video;
+        this.fk_id_video = fk_id_video;
     }
 
     
     
     
     public int getId_comment() {
-        return id_comment;
+        return pk_id_comment;
     }
 
-    public void setId_comment(int id_comment) {
-        this.id_comment = id_comment;
+    public void setId_comment(int pk_id_comment) {
+        this.pk_id_comment = pk_id_comment;
     }
 
     public String getText_comment() {
@@ -59,11 +59,11 @@ public class Commentaire {
     }
 
     public int getId_video() {
-        return id_video;
+        return fk_id_video;
     }
 
-    public void setId_video(int id_video) {
-        this.id_video = id_video;
+    public void setId_video(int fk_id_video) {
+        this.fk_id_video = fk_id_video;
     }
     
     

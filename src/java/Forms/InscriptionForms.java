@@ -71,10 +71,11 @@ public class InscriptionForms {
         }
 
         /* Stocker l'utilisateur en base de données */
-        putUserInDb(user);
+             putUserInDb(user);
 
         /* Initialisation du résultat global de la validation. */
         if (errors.isEmpty()) {
+            
             result = "Succès de l'inscription.";
         } else {
             result = "Échec de l'inscription.";
@@ -133,13 +134,15 @@ public class InscriptionForms {
     }
 
     private void putUserInDb(Utilisateur user) {
-        Utilisateur temp = new DaoUtilisateur().create(user);
-        if (temp.getId_utilisateur() == null) {
+        //Utilisateur temp = new DaoUtilisateur().create(user);
+        DaoUtilisateur daoq = new DaoUtilisateur();
+        if (daoq.findMail(user.getMail())) {
             String message = "Cet utilisateur existe déjà. Souhaitez-vous vous"
                     + " <a href='connection'>connecter</a> ?";
             setError(ERROR_MESSAGE, message);
         } else {
-            user = temp;
+            Utilisateur temp = new DaoUtilisateur().create(user);
+            //user = temp;
         }
     }
 

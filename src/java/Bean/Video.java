@@ -10,23 +10,23 @@ package Bean;
  * @author Sandra
  */
 public class Video {
-    private int id_video, positive_vote, negative_vote;
+    private int pk_id_video, positive_vote, negative_vote;
     private String titre_video, descrption_video;
     private double score;
-    private int id_utilisateur;
+    private int fk_id_utilisateur;
 
     public Video() {
     }
 
     
-    public Video(int id_video, int positive, int negative, String titre_video, String descrption_video, double score, int id_utilisateur) {
-        this.id_video = id_video;
+    public Video(int pk_id_video, int positive, int negative, String titre_video, String descrption_video, double score, int fk_id_utilisateur) {
+        this.pk_id_video = pk_id_video;
         this.positive_vote = positive_vote;
         this.negative_vote = negative_vote;
         this.titre_video = titre_video;
         this.descrption_video = descrption_video;
         this.score = score;
-        this.id_utilisateur = id_utilisateur;
+        this.fk_id_utilisateur = fk_id_utilisateur;
     }
 
     
@@ -56,11 +56,11 @@ public class Video {
     
     
     public int getId_video() {
-        return id_video;
+        return pk_id_video;
     }
 
-    public void setId_video(int id_video) {
-        this.id_video = id_video;
+    public void setId_video(int pk_id_video) {
+        this.pk_id_video = pk_id_video;
     }
 
     public int getPositive() {
@@ -88,11 +88,11 @@ public class Video {
     }
 
     public int getId_utilisateur() {
-        return id_utilisateur;
+        return fk_id_utilisateur;
     }
 
-    public void setId_utilisateur(int id_utilisateur) {
-        this.id_utilisateur = id_utilisateur;
+    public void setId_utilisateur(int fk_id_utilisateur) {
+        this.fk_id_utilisateur = fk_id_utilisateur;
     }
     
     
