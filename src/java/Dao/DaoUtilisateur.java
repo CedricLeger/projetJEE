@@ -177,16 +177,6 @@ public class DaoUtilisateur implements Dao<Utilisateur>{
                Logger.getLogger(DaoUtilisateur.class.getName()).log(Level.SEVERE, null, ex);
            }
            return retObj;
-           /*try {
-              PreparedStatement pstmt = connection.prepareStatement(sql);
-              ResultSet result = pstmt.executeQuery();
-              if (result.first())
-            {
-                return true;
-            }
-           } catch (SQLException ex) {
-               Logger.getLogger(DaoUtilisateur.class.getName()).log(Level.SEVERE, null, ex);
-           }
-           return false;*/
+           
     }
 }
