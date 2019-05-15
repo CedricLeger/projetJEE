@@ -9,6 +9,7 @@ package Forms;
 import Bean.Utilisateur;
 import Bean.Video;
 import Dao.DaoVideo;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +28,7 @@ public class VideoForms {
     
     private String result;
     private final Map<String, String> errors = new HashMap<>();
-    
+    private final ArrayList<Video> retObj = new ArrayList<>();
     DaoVideo daovideo = new DaoVideo();
   
 
@@ -153,6 +154,35 @@ contenu
         daovideo.create(video);
 
         }
+     
+     /**
+      * Supprime une video 
+      * @param video 
+      */
+     
+     private void deleteVideo(Video video)
+     {
+         daovideo.delete(video);
+     }
+     
+     /**
+      * retire le lien de la video mais garde le reste
+      * @param video 
+      */
+     
+     private void disableVideo(Video video)
+     {
+         //daovideo.disable(video);
+     }
+     
+     /**
+      * recupere toutes les videos 
+      */
+     private void findVideo()
+     {
+         retObj.add((Video) daovideo.findAll());
+     }
+     
     }
 
 

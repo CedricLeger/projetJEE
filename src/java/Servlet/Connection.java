@@ -27,7 +27,9 @@ public class Connection extends HttpServlet {
     private static final String ATT_FORM = "form";
     private static final String ATT_SESSION_USER = "sessionUtilisateur";
     private static final String VUE = "/WEB-INF/view/connection.jsp";
-
+    //private static final String VUEADMIN = "/WEB-INF/view/Admin.jsp";
+    //private static final String VUEUTIL = "/WEB-INF/view/Acceuil.jsp";
+    
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         /* Affichage de la page de connexion */
@@ -52,7 +54,7 @@ public class Connection extends HttpServlet {
             /* Préparation de l'objet formulaire */
             ConnectionForms form = new ConnectionForms();
             
-            /* Traitement de la requête et récupération du bean en résultant */
+            /* Traitement de la requête et récupération du bean en résultant */ 
             Utilisateur user = form.connectUtilisateur(request);
             /* Récupération de la session depuis la requête */
             HttpSession session = request.getSession();

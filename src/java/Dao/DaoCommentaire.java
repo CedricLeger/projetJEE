@@ -125,7 +125,27 @@ public class DaoCommentaire implements Dao<Commentaire>{
        ArrayList<Commentaire> retObj= new ArrayList<>(); 
        String sql = "SELECT * FROM "
                + table
-               + " WHERE report= true ";
+               + " WHERE report=true ";
+                
+           try {
+              PreparedStatement pstmt = connection.prepareStatement(sql);
+              ResultSet result = pstmt.executeQuery();
+              if (result.next())
+            {
+                retObj.add(new Commentaire(result.getInt("pk_id_comment"),result.getString("text_comment"),
+                        result.getInt("fk_id_video")));
+            }
+           } catch (SQLException ex) {
+               Logger.getLogger(DaoCommentaire.class.getName()).log(Level.SEVERE, null, ex);
+           }
+           return retObj;
+    }
+    
+    public List<Commentaire> findById(Commentaire comment) {
+       ArrayList<Commentaire> retObj= new ArrayList<>(); 
+       String sql = "SELECT * FROM "
+               + table
+               + " WHERE fk_id_video=? ";
                 
            try {
               PreparedStatement pstmt = connection.prepareStatement(sql);
