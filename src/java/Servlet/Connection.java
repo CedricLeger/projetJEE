@@ -9,6 +9,8 @@ import Bean.Utilisateur;
 import Forms.ConnectionForms;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -46,27 +48,32 @@ public class Connection extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        /* Préparation de l'objet formulaire */
-        ConnectionForms form = new ConnectionForms();
-        /* Traitement de la requête et récupération du bean en résultant */
-        Utilisateur user = form.connectUtilisateur(request);
-        /* Récupération de la session depuis la requête */
-        HttpSession session = request.getSession();
-        /**
-         * Si aucune erreur de validation n'a eu lieu, alors ajout du bean user
-         * à la session, sinon suppression du bean de la session.
-         */
-        if (form.getErrors().isEmpty()) {
-            session.setAttribute(ATT_SESSION_USER, user);
-        } else {
-            session.setAttribute(ATT_SESSION_USER, null);
+        try {
+            /* Préparation de l'objet formulaire */
+            ConnectionForms form = new ConnectionForms();
+            
+            /* Traitement de la requête et récupération du bean en résultant */
+            Utilisateur user = form.connectUtilisateur(request);
+            /* Récupération de la session depuis la requête */
+            HttpSession session = request.getSession();
+            /**
+             * Si aucune erreur de validation n'a eu lieu, alors ajout du bean user
+             * à la session, sinon suppression du bean de la session.
+             */
+            if (form.getErrors().isEmpty()) {
+                session.setAttribute(ATT_SESSION_USER, user);
+            } else {
+                session.setAttribute(ATT_SESSION_USER, null);
+            }
+            /* Stockage du formulaire et du bean dans l'objet request */
+            request.setAttribute(ATT_FORM, form);
+            request.setAttribute(ATT_USER, user);
+            this.getServletContext()
+                    .getRequestDispatcher(VUE)
+                    .forward(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
         }
-        /* Stockage du formulaire et du bean dans l'objet request */
-        request.setAttribute(ATT_FORM, form);
-        request.setAttribute(ATT_USER, user);
-        this.getServletContext()
-                .getRequestDispatcher(VUE)
-                .forward(request, response);
     }
 
 

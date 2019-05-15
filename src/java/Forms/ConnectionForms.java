@@ -39,7 +39,7 @@ public class ConnectionForms {
      * @param request La reuête utilisateur
      * @return Un bean user hydraté par les données utilisateur.
      */
-    public Utilisateur connectUtilisateur(HttpServletRequest request) {
+    public Utilisateur connectUtilisateur(HttpServletRequest request) throws Exception {
         /* Récupération des champs du formulaire */
         String email = getParamValue(request, EMAIL);
         String pwd = getParamValue(request, PASSWORD);
@@ -54,10 +54,11 @@ public class ConnectionForms {
         /* Validation du champ mot de passe. */
         try {
             validatePassword(pwd);
-            //verifierPassword(email,pwd);
+            verifierPassword(email,pwd);
         } catch (Exception e) {
             setError(PASSWORD, e.getMessage());
         }
+      
         user.setPassword(pwd);
         /* Initialisation du résultat global de la validation. */
         if (errors.isEmpty()) {

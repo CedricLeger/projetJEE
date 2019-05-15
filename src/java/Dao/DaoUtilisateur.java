@@ -6,6 +6,9 @@
 package Dao;
 
 import Bean.Utilisateur;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -57,7 +60,7 @@ public class DaoUtilisateur implements Dao<Utilisateur>{
         try {
             PreparedStatement pstmt = connection.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
             pstmt.setString(1,obj.getMail());
-            pstmt.setString(2,obj.getPassword());
+            pstmt.setString(2,encryptThisString(obj.getPassword()));
             pstmt.setString(3,obj.getPseudo());
             pstmt.setString(4, obj.getStatut());
             //il va generer la clef automatiquement pour qu'on puisse plus tard identifier le nv object
@@ -143,24 +146,35 @@ public class DaoUtilisateur implements Dao<Utilisateur>{
     }
     
     public Boolean findlog(String mail, String password) {
-      Utilisateur retObj= null; 
+      Boolean retObj= false; 
        String sql = "SELECT * FROM "
                + table
-               + " WHERE mail = ? and password= ?";
+               + " WHERE mail = ?";
                 
            try {
               PreparedStatement pstmt = connection.prepareStatement(sql);
+              pstmt.setString(1,mail);
               ResultSet result = pstmt.executeQuery();
-              if (result.first())
-            {
-                return true;
-            }
-           } catch (SQLException ex) {
-               Logger.getLogger(DaoUtilisateur.class.getName()).log(Level.SEVERE, null, ex);
-           }
-           return false;
+              if(result.first())
+              {
+                 retObj = ((mail.equals(result.getString("mail"))) &&(encryptThisString(password).equalsIgnoreCase(result.getString("password"))));
+              }
+                }   catch (SQLException ex) {
+            Logger.getLogger(DaoUtilisateur.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           return retObj;
     }
+           
 
+//              if (result.first())
+//            {
+//                return true;
+//            }
+//           } catch (SQLException ex) {
+//               Logger.getLogger(DaoUtilisateur.class.getName()).log(Level.SEVERE, null, ex);
+//           }
+//           return false;
+  
     public Boolean findMail(String mail) {
       Boolean retObj= false; 
        String sql = "SELECT * FROM "
@@ -179,4 +193,21 @@ public class DaoUtilisateur implements Dao<Utilisateur>{
            return retObj;
            
     }
+    public static String encryptThisString(String input) 
+    { 
+        try { 
+// getInstance() method is called with algorithm SHA-1 
+MessageDigest md = MessageDigest.getInstance("SHA-1"); 
+// digest() method is called // to calculate message digest of the input string // returned as array of byte 
+byte[]messageDigest = md.digest(input.getBytes()); 
+// Convert byte array into signum representation 
+BigInteger no = new BigInteger(1, messageDigest); 
+// Convert message digest into hex value 
+String hashtext = no.toString(16); // Add preceding 0s to make it 32 bit 
+while (hashtext.length() < 32) { hashtext = "0" + hashtext; } 
+// return the HashText 
+return hashtext; 
+        } 
+// For specifying wrong message digest algorithms 
+        catch (NoSuchAlgorithmException e) { throw new RuntimeException(e); } }
 }

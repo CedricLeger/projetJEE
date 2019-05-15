@@ -75,6 +75,12 @@ public class Utilisateur {
         return admin;
     }
 
+    @Override
+    public String toString() {
+        return "Utilisateur{" + "pk_id_utilisateur=" + pk_id_utilisateur + ", mail=" + mail + ", password=" + password + ", statut=" + statut + ", pseudo=" + pseudo + ", admin=" + admin + '}';
+    }
+    
+
     public void setAdmin(boolean admin) {
         this.admin = admin;
     }

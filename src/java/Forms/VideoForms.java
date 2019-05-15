@@ -6,11 +6,13 @@
 
 package Forms;
 
+import Bean.Utilisateur;
 import Bean.Video;
 import Dao.DaoVideo;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -38,7 +40,7 @@ public class VideoForms {
     }
 
 
-    public Video creationVideo(HttpServletRequest request) {
+    public Video creationVideo(HttpServletRequest request, HttpSession session) {
         /* Récupération des champs du formulaire */
         String lien = getParamValue(request,LIEN );
         String titre= getParamValue(request, TITRE);
@@ -49,7 +51,11 @@ public class VideoForms {
         video.setTitre_video(titre);
         video.setDescription_video(description);
         // Utilisateur en session
-        video.setFk_id_utilisateur(1);
+        session = request.getSession();
+        //session.getAttribute(Utilisateur);
+        Utilisateur user = (Utilisateur)session.getAttribute("sessionUtilisateur");
+        System.out.println(user);
+       //video.setFk_id_utilisateur(session.);
        
         /* Validation du champ email. */
         try {

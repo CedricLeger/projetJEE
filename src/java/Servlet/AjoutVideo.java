@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -45,7 +46,8 @@ public class AjoutVideo extends HttpServlet {
          * Appel au traitement et à la validation de la requête, et récupération
          * du bean en résultant
          */
-        Video video = form.creationVideo(request);
+        HttpSession session=request.getSession();;
+        Video video = form.creationVideo(request,session);
 
         /* Stockage du formulaire et du bean dans l'objet request */
         request.setAttribute(ATT_FORM, form);
