@@ -71,6 +71,9 @@ public class InscriptionForms {
         }
 
         /* Stocker l'utilisateur en base de données */
+        
+        //Tentative pour ajouter un id utilisateur automatique a la création du user en DBB
+             user.setId_utilisateur(Integer.MIN_VALUE);
              putUserInDb(user);
 
         /* Initialisation du résultat global de la validation. */
