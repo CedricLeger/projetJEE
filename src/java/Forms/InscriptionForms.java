@@ -143,7 +143,15 @@ public class InscriptionForms {
             String message = "Cet utilisateur existe déjà. Souhaitez-vous vous"
                     + " <a href='connection'>connecter</a> ?";
             setError(ERROR_MESSAGE, message);
-        } else {
+            
+        }
+        if("supprimé".equals(daoq.findStatut(user.getStatut()))){
+        
+         String message = "Cet utilisateur est banni et ne peut pas se réinscrire";
+            setError(ERROR_MESSAGE, message);
+    }
+        
+                else {
             Utilisateur temp = new DaoUtilisateur().create(user);
             //user = temp;
         }

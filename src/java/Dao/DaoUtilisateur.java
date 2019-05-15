@@ -94,6 +94,22 @@ public class DaoUtilisateur implements Dao<Utilisateur> {
         }
     }
 
+    public String findStatut(String mail) {
+        String retObj = "";
+        String sql = "SELECT statut FROM " + table + " WHERE mail=?";
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, mail);
+            ResultSet result = pstmt.executeQuery();
+if (result.first()) {
+                retObj = result.getString("statut");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DaoUtilisateur.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return retObj;
+    }
+
     @Override
     public Utilisateur update(Utilisateur obj) {
         throw new RuntimeException("methode non implementer");

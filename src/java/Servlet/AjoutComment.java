@@ -5,7 +5,9 @@
  */
 package Servlet;
 
+import Bean.Commentaire;
 import Bean.Video;
+import Forms.CommentForms;
 import Forms.VideoForms;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,11 +21,11 @@ import javax.servlet.http.HttpSession;
  *
  * @author Leger Cédric
  */
-public class AjoutVideo extends HttpServlet {
+public class AjoutComment extends HttpServlet {
   //* Des constantes */
     private static final String ATT_FORM = "form";
-    private static final String ATT_VIDEO = "video";
-    public static final String VIEW = "/WEB-INF/view/AjoutVideo.jsp";
+    private static final String ATT_COMMENT = "comment";
+    public static final String VIEW = "/WEB-INF/view/VueComplete.jsp";
 
 
     @Override
@@ -40,18 +42,18 @@ public class AjoutVideo extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         /* Préparation de l'objet formulaire */
-        VideoForms form = new VideoForms();
+        CommentForms form = new CommentForms();
 
         /*
          * Appel au traitement et à la validation de la requête, et récupération
          * du bean en résultant
          */
-        HttpSession session=request.getSession();
-        Video video = form.creationVideo(request,session);
+        HttpSession session=request.getSession();;
+        Commentaire comment = form.creationComment(request,session);
 
         /* Stockage du formulaire et du bean dans l'objet request */
         request.setAttribute(ATT_FORM, form);
-        request.setAttribute(ATT_VIDEO, video);
+        request.setAttribute(ATT_COMMENT, comment);
 
         /* Transmission de la paire d'objets request/response à notre JSP */
         this.getServletContext()

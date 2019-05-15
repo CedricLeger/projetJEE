@@ -20,6 +20,7 @@ public class ConnectionForms {
 
     private static final String EMAIL = "email";
     private static final String PASSWORD = "password";
+    private static final String STATUT= "statut";
     private String result;
     private final Map<String, String> errors = new HashMap<>();
     DaoUtilisateur daouser = new DaoUtilisateur();
@@ -43,6 +44,7 @@ public class ConnectionForms {
         /* Récupération des champs du formulaire */
         String email = getParamValue(request, EMAIL);
         String pwd = getParamValue(request, PASSWORD);
+        String statut = getParamValue(request,STATUT);
         
         /* Validation du champ email. */
         try {
@@ -57,6 +59,12 @@ public class ConnectionForms {
             verifierPassword(email,pwd);
         } catch (Exception e) {
             setError(PASSWORD, e.getMessage());
+        }
+        //validation du statut utilisateur pour autoriser sa connection
+        try{
+            validateStatut(user);  
+        }catch(Exception e){
+            setError(STATUT, e.getMessage());
         }
       
         user.setPassword(pwd);
@@ -129,5 +137,23 @@ contenu
            throw new Exception("Votre mot de passe ne correspond pas votre email");
          }
          }
+   private void validateStatut(Utilisateur user) {
+        //Utilisateur temp = new DaoUtilisateur().create(user);
+        DaoUtilisateur daoq = new DaoUtilisateur();
+        if ("désactivé".equals(daoq.findStatut(user.getStatut()))) {
+            String message = "Cet utilisateur est désactivé "
+                    + " <a href='connection'>connecter</a> ?";
+            setError("errorMessage", message);
+        }
+               if ("supprimé".equals(daoq.findStatut(user.getStatut()))) {
+            String message = "Cet utilisateur est banni"
+                    + " <a href='connection'>connecter</a> ?";
+            setError("errorMessage", message);
+        }
+
+        else {
+            Utilisateur temp = new DaoUtilisateur().create(user);
      }
+   }
+}
 

@@ -57,4 +57,13 @@
         <servlet-name>Logout</servlet-name>
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
+    <!-- Maping Acceuil Admin -->
+    <servlet>
+        <servlet-name>Admin</servlet-name>
+        <servlet-class>Servlet.Admin</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Admin</servlet-name>
+        <url-pattern>/Admin</url-pattern>
+    </servlet-mapping>
 </web-app>

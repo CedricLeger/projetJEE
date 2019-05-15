@@ -5,6 +5,8 @@
  */
 package Servlet;
 
+import Bean.Utilisateur;
+import Dao.DaoUtilisateur;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,35 +22,21 @@ public class SignOut extends HttpServlet {
     
         private static final String URL_REDIRECTION = "/WEB-INF/view/index.jsp";
 
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+        @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        /* Récupération et destruction de la session en cours */
-        HttpSession session = request.getSession();
-        session.invalidate();
-
-        /* Redirection vers le formulaire de connexion */
-        response.sendRedirect(getServletContext()
+        //création d'un objet de type session 
+            HttpSession session = request.getSession();
+            //utilisation du get attribute pour trouver l'utilisateur connecté actuel
+            Utilisateur user = (Utilisateur)session.getAttribute("sessionUtilisateur");
+            //debug pour afficher l'utilisateur a supprimer
+            System.out.println(user);
+            //instanciation d'un daoUtilisateur pour effacher l'utilisateur en base de donnée avec les données récupérer dans la session
+            DaoUtilisateur dauser= new DaoUtilisateur();
+            dauser.delete(user);
+            //retour à la vue principal index( accueil)
+            response.sendRedirect(getServletContext()
                 .getContextPath() + URL_REDIRECTION);
-
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
     }
 }
 
