@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Forms;
 
 import Bean.Utilisateur;
@@ -14,13 +13,14 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  *
- * @author Expression Cedric is undefined on line 12, column 14 in Templates/Classes/Class.java.
+ * @author Expression Cedric is undefined on line 12, column 14 in
+ * Templates/Classes/Class.java.
  */
 public class ConnectionForms {
 
     private static final String EMAIL = "email";
     private static final String PASSWORD = "password";
-    private static final String STATUT= "statut";
+    private static final String STATUT = "statut";
     private String result;
     private final Map<String, String> errors = new HashMap<>();
     DaoUtilisateur daouser = new DaoUtilisateur();
@@ -39,13 +39,14 @@ public class ConnectionForms {
      *
      * @param request La reuête utilisateur
      * @return Un bean user hydraté par les données utilisateur.
+     * @throws java.lang.Exception
      */
     public Utilisateur connectUtilisateur(HttpServletRequest request) throws Exception {
         /* Récupération des champs du formulaire */
         String email = getParamValue(request, EMAIL);
         String pwd = getParamValue(request, PASSWORD);
-        String statut = getParamValue(request,STATUT);
-        
+        String statut = getParamValue(request, STATUT);
+
         /* Validation du champ email. */
         try {
             validateEmail(email);
@@ -56,23 +57,23 @@ public class ConnectionForms {
         /* Validation du champ mot de passe. */
         try {
             validatePassword(pwd);
-            verifierPassword(email,pwd);
+            verifierPassword(email, pwd);
         } catch (Exception e) {
             setError(PASSWORD, e.getMessage());
         }
         //validation du statut utilisateur pour autoriser sa connection
-        try{
-            validateStatut(user);  
-        }catch(Exception e){
+        try {
+            validateStatut(user);
+        } catch (Exception e) {
             setError(STATUT, e.getMessage());
         }
-      
+
         user.setPassword(pwd);
         /* Initialisation du résultat global de la validation. */
         if (errors.isEmpty()) {
             result = "Succès de la connexion.";
         } else {
-            result = "Échec de la connexion.";
+            result = "Échec de la connexion."+getErrors();
         }
         return user;
     }
@@ -87,8 +88,7 @@ public class ConnectionForms {
         } else if (!email.matches("([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)")) {
             throw new Exception(
                     "Merci de saisir une adresse mail valide. ");
-        } else if(!daouser.findMail(email))
-        {
+        } else if (!daouser.findMail(email)) {
             throw new Exception("Cette adresse n'existe pas veuillez crée une compte avant de vous connecter");
         }
     }
@@ -103,7 +103,7 @@ public class ConnectionForms {
                 throw new Exception(
                         "Le mot de passe doit contenir au moins 3 caractères.");
             }
-            
+
         } else {
             throw new Exception("Merci de saisir votre mot de passe.");
         }
@@ -112,7 +112,7 @@ public class ConnectionForms {
     /*
 * Ajoute un message correspondant au champ spécifié à la map des
 erreurs.
-     */
+//     */
     private void setError(String field, String message) {
         errors.put(field, message);
     }
@@ -130,30 +130,31 @@ contenu
             return value.trim();
         }
     }
-     private void verifierPassword(String email,String password) throws Exception{
-         
-         if(!daouser.findlog(email,password)){
-            
-           throw new Exception("Votre mot de passe ne correspond pas votre email");
-         }
-         }
-   private void validateStatut(Utilisateur user) {
+
+    private void verifierPassword(String email, String password) throws Exception {
+
+        if (!daouser.findlog(email, password)) {
+
+            throw new Exception("Votre mot de passe ne correspond pas votre email");
+        }
+    }
+
+    private void validateStatut(Utilisateur user)throws Exception { 
         //Utilisateur temp = new DaoUtilisateur().create(user);
         DaoUtilisateur daoq = new DaoUtilisateur();
-        if ("désactivé".equals(daoq.findStatut(user.getStatut()))) {
-            String message = "Cet utilisateur est désactivé "
-                    + " <a href='connection'>connecter</a> ?";
-            setError("errorMessage", message);
+        if ("désactivé".equals(daoq.findStatut(user.getMail()))) {
+         
+            throw new Exception("Cet utilisateur est désactivé ");
+//            
+//            String message = "Cet utilisateur est désactivé ";
+//            setError("errorMessage", message);
         }
-               if ("supprimé".equals(daoq.findStatut(user.getStatut()))) {
-            String message = "Cet utilisateur est banni"
-                    + " <a href='connection'>connecter</a> ?";
-            setError("errorMessage", message);
+        if ("supprimé".equals(daoq.findStatut(user.getMail()))) {
+           
+             throw new Exception("Cet utilisateur est supprimé");
         }
-
-        else {
-            Utilisateur temp = new DaoUtilisateur().create(user);
-     }
-   }
+//            String message = "Cet utilisateur est banni";
+//            setError("errorMessage", message);
+        
+    }
 }
-

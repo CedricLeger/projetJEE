@@ -20,12 +20,11 @@ import javax.servlet.http.HttpSession;
  */
 public class SignOut extends HttpServlet { 
     
-        private static final String URL_REDIRECTION = "/WEB-INF/view/index.jsp";
+        private static final String URL_REDIRECTION = "/Index";
 
-        @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        //création d'un objet de type session 
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+              //création d'un objet de type session 
             HttpSession session = request.getSession();
             //utilisation du get attribute pour trouver l'utilisateur connecté actuel
             Utilisateur user = (Utilisateur)session.getAttribute("sessionUtilisateur");
@@ -37,6 +36,13 @@ public class SignOut extends HttpServlet {
             //retour à la vue principal index( accueil)
             response.sendRedirect(getServletContext()
                 .getContextPath() + URL_REDIRECTION);
+    }
+
+        
+        @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
     }
 }
 

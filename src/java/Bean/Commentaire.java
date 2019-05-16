@@ -9,6 +9,7 @@ package Bean;
  *
  * @author Sandra
  */
+//bean commentaire 
 public class Commentaire {
     private int pk_id_comment;
     private String text_comment;

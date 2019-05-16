@@ -7,7 +7,9 @@ package Forms;
 
 import Bean.Commentaire;
 import Bean.Utilisateur;
+import Bean.Video;
 import Dao.DaoCommentaire;
+import Dao.DaoUtilisateur;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -58,7 +60,11 @@ public class CommentForms {
             setError(TEXT_COMMENT, e.getMessage());
         }
         comment.setText_comment(text_comment);
-       
+          try {
+        //validateStatut(user);
+        } catch (Exception e) {
+            setError(TEXT_COMMENT, e.getMessage());
+        }
         if (errors.isEmpty()) {
             putCommentInDb(comment);
             result = "commentaire soumis";
@@ -76,6 +82,19 @@ public class CommentForms {
         if ("".equals(text_comment)) {
             throw new Exception("Merci de saisir votre commentaire");
        
+        }
+    }
+    private void validateStatut(Utilisateur user,Commentaire comment,Video video) throws Exception
+    {
+        DaoUtilisateur daouser = new DaoUtilisateur();
+        DaoCommentaire daocomment= new DaoCommentaire();
+         if ("supprimé".equals(daouser.findStatut(user.getMail()))) {
+             if(user.getId_utilisateur()==video.getFk_id_utilisateur() && video.getId_video()==comment.getId_video()){
+                    daocomment.updateAllComment(user);
+                   throw new Exception("Cet utilisateur est supprimé donc commentaire modifié");
+             }
+          
+
         }
     }
 
@@ -126,6 +145,13 @@ contenu
      private void findComment()
      {
          retObj.add((Commentaire) daocomment.findAll());
+     }
+     //fonction pour changer la valeur de report d'un commentaire non signalé
+     private void reportComment(Commentaire comment){
+         
+         daocomment.find(comment.getId_comment());
+         daocomment.update(comment);
+         
      }
      
     

@@ -35,7 +35,7 @@ public final class MySQLConnection {
         if (connection==null)
         {
             Properties config= new Properties();
-            try(InputStream in= MySQLConnection.class.getResourceAsStream("../ressource/config_1.properties"))
+            try(InputStream in= MySQLConnection.class.getResourceAsStream("../ressource/config.properties"))
             {
                 config.load(in); 
                

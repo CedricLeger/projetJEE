@@ -8,6 +8,7 @@ package Forms;
 
 import Bean.Utilisateur;
 import Bean.Video;
+import Dao.DaoUtilisateur;
 import Dao.DaoVideo;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,6 +31,7 @@ public class VideoForms {
     private final Map<String, String> errors = new HashMap<>();
     private final ArrayList<Video> retObj = new ArrayList<>();
     DaoVideo daovideo = new DaoVideo();
+    DaoUtilisateur daouser = new DaoUtilisateur();
   
 
     public String getResult() {
@@ -55,6 +57,8 @@ public class VideoForms {
         session = request.getSession();
         //session.getAttribute(Utilisateur);
         Utilisateur user = (Utilisateur)session.getAttribute("sessionUtilisateur");
+        user.setId_utilisateur(daouser.findId(user.getMail()));
+        video.setFk_id_utilisateur(user.getId_utilisateur());
         System.out.println(user);
        //video.setFk_id_utilisateur(session.);
        

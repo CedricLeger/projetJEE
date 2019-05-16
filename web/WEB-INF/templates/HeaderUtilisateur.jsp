@@ -6,6 +6,7 @@
 
 <nav>
   
+    <a href="AjoutVideo">Ajout Video</a>
     <a href="logout">Déconnexion</a>
     <a href="SignOut">Se désinscrire</a>
 </nav>

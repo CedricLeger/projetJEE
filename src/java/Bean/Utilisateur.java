@@ -10,6 +10,8 @@ package Bean;
  *
  * @author Expression Cedric is undefined on line 12, column 14 in Templates/Classes/Class.java.
  */
+
+//bean utilisateur 
 public class Utilisateur {
     private Integer pk_id_utilisateur;
     private String mail, password,statut="actif", pseudo;

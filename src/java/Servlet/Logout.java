@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
  */
 public class Logout extends HttpServlet {
 
-     private static final String URL_REDIRECTION = "/WEB-INF/view/index.jsp";
+     private static final String URL_REDIRECTION = "/Index";
 
     /**
      * Handles the HTTP <code>GET</code> method.

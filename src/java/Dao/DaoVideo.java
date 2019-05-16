@@ -182,5 +182,43 @@ public class DaoVideo implements Dao<Video>{
            return retObj;
            
     }
+     public void updateVotePositif(Video obj) {
     
+       String sql = "UPDATE "
+               +table
+               + " SET positive_vote=?"
+               +" WHERE pk_id_video=?";
+        try
+        {
+            PreparedStatement pstmt= connection.prepareStatement(sql);
+            pstmt.setInt(1, obj.getPositive_vote()+1);
+            pstmt.setInt(1, obj.getPk_id_video());
+            ResultSet result = pstmt.executeQuery();
+
+        } catch (SQLException ex)
+            {
+               Logger.getLogger(DaoVideo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+     
+    }    
+    
+    public void updateVoteNegatif(Video obj) {
+    
+       String sql = "UPDATE "
+               +table
+               + " SET nagative_vote=?"
+               +" WHERE pk_id_video=?";
+        try
+        {
+            PreparedStatement pstmt= connection.prepareStatement(sql);
+            pstmt.setInt(1, obj.getNegative_vote()+1);
+            pstmt.setInt(1, obj.getPk_id_video());
+            ResultSet result = pstmt.executeQuery();
+
+        } catch (SQLException ex)
+            {
+               Logger.getLogger(DaoVideo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+     
+    }    
 }

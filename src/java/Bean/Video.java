@@ -11,6 +11,8 @@ import java.util.Date;
  *
  * @author Sandra
  */
+
+//bean Video
 public class Video {
     private int pk_id_video, positive_vote, negative_vote;
     private String titre_video, description_video, lien_video;

@@ -95,6 +95,7 @@ public class DaoUtilisateur implements Dao<Utilisateur> {
     }
 
     public String findStatut(String mail) {
+        
         String retObj = "";
         String sql = "SELECT statut FROM " + table + " WHERE mail=?";
         try {
@@ -107,6 +108,7 @@ if (result.first()) {
         } catch (SQLException ex) {
             Logger.getLogger(DaoUtilisateur.class.getName()).log(Level.SEVERE, null, ex);
         }
+       ;
         return retObj;
     }
 
@@ -197,6 +199,25 @@ if (result.first()) {
         }
         return retObj;
 
+    }
+    public int findId(String mail){
+        int retObj = 0;
+        String sql = "SELECT * FROM "
+                +table
+                +" WHERE mail= ? ";
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, mail);
+            ResultSet result = pstmt.executeQuery();
+        if (result.first()) {
+                retObj = result.getInt("pk_id_utilisateur");
+            }
+        }catch (SQLException ex) {
+            Logger.getLogger(DaoUtilisateur.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+        return retObj;
+        
     }
 
     public static String encryptThisString(String input) {
