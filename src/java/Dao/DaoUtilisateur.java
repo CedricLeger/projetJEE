@@ -100,7 +100,28 @@ public class DaoUtilisateur implements Dao<Utilisateur>{
 
 @Override
     public Utilisateur update(Utilisateur obj) {
-        throw new RuntimeException("methode non implementer");
+        Utilisateur retObj = null;
+        String sql= " UPDATE " + table + " SET mail=?, " 
+                +" pseudo=?, "
+                +" statut=? "
+                +" WHERE pk_id_utilisateur=? ";
+        
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+      
+      pstmt.setString(1,obj.getMail());
+      pstmt.setString(2,obj.getPseudo());
+      pstmt.setString(3, obj.getStatut());
+      pstmt.setInt(4,obj.getId_utilisateur());
+      pstmt.executeUpdate();
+      
+      retObj=find(obj.getId_utilisateur());
+      
+      
+        } catch (SQLException ex) {
+            Logger.getLogger(DaoCommentaire.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return retObj;
     }
 
     @Override
@@ -114,8 +135,8 @@ public class DaoUtilisateur implements Dao<Utilisateur>{
             ResultSet result = pstmt.executeQuery();
             while (result.next())
             {
-                retObj.add(new Utilisateur(result.getInt("id"),result.getString("mail"),
-                       result.getString("password"), result.getString("pseudo"), result.getBoolean("admin"), result.getString("statut") ));
+                retObj.add(new Utilisateur(result.getInt("pk_id_utilisateur"),result.getString("mail"),
+                       result.getString("password"), result.getString("pseudo"), result.getString("statut") ));
             }
         } catch (SQLException ex)
             {
@@ -136,7 +157,7 @@ public class DaoUtilisateur implements Dao<Utilisateur>{
               ResultSet result = pstmt.executeQuery();
               if (result.first())
             {
-                retObj=new Utilisateur(result.getInt("id"),mail,result.getString("password"),
+                retObj=new Utilisateur(result.getInt("pk_id_utilisateur"),mail,result.getString("password"),
                         result.getString("pseudo"));
             }
            } catch (SQLException ex) {

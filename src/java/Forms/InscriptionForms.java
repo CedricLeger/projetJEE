@@ -6,7 +6,9 @@
 
 package Forms;
 
+import Bean.Commentaire;
 import Bean.Utilisateur;
+import Bean.Video;
 import Dao.DaoUtilisateur;
 import java.util.HashMap;
 import java.util.Map;
@@ -146,5 +148,6 @@ public class InscriptionForms {
         }
     }
 
+  
 }
 

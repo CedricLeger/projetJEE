@@ -6,11 +6,8 @@
 package Servlet;
 
 import Bean.Commentaire;
-import Bean.Video;
 import Forms.CommentForms;
-import Forms.VideoForms;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +23,7 @@ public class AjoutComment extends HttpServlet {
     private static final String ATT_FORM = "form";
     private static final String ATT_COMMENT = "comment";
     public static final String VIEW = "/WEB-INF/view/VueComplete.jsp";
+    public static final String VIEWADMIN = "/WEB-INF/view/Admin.jsp";
 
 
     @Override
@@ -61,6 +59,19 @@ public class AjoutComment extends HttpServlet {
                 .forward(request, response);
     }
 
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        /* Préparation de l'objet formulaire */
+       CommentForms form = new CommentForms();
+        
+        HttpSession session=req.getSession();
+        form.suppressionCommentaire(req, session);
+        
+        this.getServletContext()
+                .getRequestDispatcher(VIEWADMIN)
+                .forward(req, resp);
+         
+    }
  
     @Override
     public String getServletInfo() {

@@ -6,11 +6,14 @@
 
 package Forms;
 
+import Bean.Commentaire;
 import Bean.Utilisateur;
+import Bean.Video;
 import Dao.DaoUtilisateur;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -129,5 +132,7 @@ contenu
            throw new Exception("Votre mot de passe ne correspond pas votre email");
          }
          }
+     
+     
      }
 

@@ -110,15 +110,25 @@ contenu
         }
      
      /**
-      * Supprime une video 
-      * @param video 
+      * supprime un commentaire
+      * @param request
+      * @param session 
       */
-     
-     private void deleteComment(Commentaire comment)
+     public void suppressionCommentaire(HttpServletRequest request, HttpSession session) 
      {
-         daocomment.delete(comment);
+        String text_comment = getParamValue(request,TEXT_COMMENT );
+
+        Commentaire comment = new Commentaire();
+        comment.setText_comment(text_comment);
+         deleteComment(comment);
      }
     
+     private void deleteComment(Commentaire comment)
+     {
+         
+         daocomment.delete(comment);
+         
+     }
      
      /**
       * recupere toutes les videos 

@@ -78,7 +78,7 @@ public class DaoCommentaire implements Dao<Commentaire>{
     }
     
     /**
-     * Utiliser quand un admin supprime un compte
+     * Utiliser quand un admin supprime un commentaire
      * @param obj 
      */
 
@@ -96,7 +96,27 @@ public class DaoCommentaire implements Dao<Commentaire>{
 
 @Override
     public Commentaire update(Commentaire obj) {
-        throw new RuntimeException("methode non implementer");
+        Commentaire retObj = null;
+        String sql= " UPDATE " + table + " SET text_comment=?, " 
+                +" report=? "
+                +" WHERE pk_id_comment = ? ";
+        
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+      
+            pstmt.setString(1,obj.getText_comment());
+            pstmt.setBoolean(2,obj.isReport());
+            pstmt.setInt(3,obj.getId_comment());
+        pstmt.executeUpdate();
+      
+      retObj=find(obj.getId_comment());
+      
+      
+        } catch (SQLException ex) {
+            Logger.getLogger(DaoCommentaire.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return retObj;
+    
     }
 
     @Override
@@ -141,11 +161,12 @@ public class DaoCommentaire implements Dao<Commentaire>{
            return retObj;
     }
     
-    public List<Commentaire> findById(Commentaire comment) {
+    
+    public List<Commentaire> findById(Integer id) {
        ArrayList<Commentaire> retObj= new ArrayList<>(); 
        String sql = "SELECT * FROM "
                + table
-               + " WHERE fk_id_video=? ";
+               + " WHERE fk_id_video= id ";
                 
            try {
               PreparedStatement pstmt = connection.prepareStatement(sql);

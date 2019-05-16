@@ -8,7 +8,6 @@ package Servlet;
 import Bean.Video;
 import Forms.VideoForms;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,12 +23,14 @@ public class AjoutVideo extends HttpServlet {
     private static final String ATT_FORM = "form";
     private static final String ATT_VIDEO = "video";
     public static final String VIEW = "/WEB-INF/view/AjoutVideo.jsp";
-
+    public static final String VIEWADMIN = "/WEB-INF/view/Admin.jsp";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        /* Affichage de la page d'inscription */
+        
+        
+        /* Affichage de la page ajoutvideo */
         this.getServletContext()
                 .getRequestDispatcher(VIEW)
                 .forward(request, response);
@@ -46,7 +47,7 @@ public class AjoutVideo extends HttpServlet {
          * Appel au traitement et à la validation de la requête, et récupération
          * du bean en résultant
          */
-        HttpSession session=request.getSession();;
+        HttpSession session=request.getSession();
         Video video = form.creationVideo(request,session);
 
         /* Stockage du formulaire et du bean dans l'objet request */
@@ -58,7 +59,7 @@ public class AjoutVideo extends HttpServlet {
                 .getRequestDispatcher(VIEW)
                 .forward(request, response);
     }
-
+    
  
     @Override
     public String getServletInfo() {

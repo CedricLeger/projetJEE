@@ -13,7 +13,6 @@ package Bean;
 public class Utilisateur {
     private Integer pk_id_utilisateur;
     private String mail, password,statut="actif", pseudo;
-    private boolean admin=false;
 
     public Utilisateur() {
     }
@@ -27,12 +26,11 @@ public class Utilisateur {
         this.pseudo = pseudo;
     }
 
-    public Utilisateur(int pk_id_utilisateur, String mail, String password, String pseudo, Boolean admin, String statut) {
+    public Utilisateur(int pk_id_utilisateur, String mail, String password, String pseudo, String statut) {
         this.pk_id_utilisateur = pk_id_utilisateur;
         this.mail = mail;
         this.password = password;
         this.pseudo = pseudo;
-        this.admin = admin;
         this.statut = statut;
     }
 
@@ -71,19 +69,13 @@ public class Utilisateur {
         this.statut = statut;
     }
 
-    public boolean isAdmin() {
-        return admin;
-    }
 
     @Override
     public String toString() {
-        return "Utilisateur{" + "pk_id_utilisateur=" + pk_id_utilisateur + ", mail=" + mail + ", password=" + password + ", statut=" + statut + ", pseudo=" + pseudo + ", admin=" + admin + '}';
+        return "Utilisateur{" + "pk_id_utilisateur=" + pk_id_utilisateur + ", mail=" + mail + ", password=" + password + ", statut=" + statut + ", pseudo=" + pseudo + '}';
     }
     
 
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
-    }
 
     public String getPseudo() {
         return pseudo;

@@ -6,11 +6,14 @@
 
 package Forms;
 
+import Bean.Commentaire;
 import Bean.Utilisateur;
 import Bean.Video;
+import Dao.DaoCommentaire;
 import Dao.DaoVideo;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -29,8 +32,10 @@ public class VideoForms {
     private String result;
     private final Map<String, String> errors = new HashMap<>();
     private final ArrayList<Video> retObj = new ArrayList<>();
+    private static final String ID_VIDEO = "id_video"; 
+    private final ArrayList<Commentaire> retObjComment = new ArrayList<>();
     DaoVideo daovideo = new DaoVideo();
-  
+    DaoCommentaire daocomment = new DaoCommentaire();
 
     public String getResult() {
         return result;
@@ -85,7 +90,7 @@ public class VideoForms {
             putVideoInDb(video);
             result = "Votre video a bien été enregistré";
         } else {
-            result = "Échec de 'enregistrement de votre video";
+            result = "Échec de l'enregistrement de votre video";
         }
         return video;
     }
@@ -155,15 +160,7 @@ contenu
 
         }
      
-     /**
-      * Supprime une video 
-      * @param video 
-      */
      
-     private void deleteVideo(Video video)
-     {
-         daovideo.delete(video);
-     }
      
      /**
       * retire le lien de la video mais garde le reste
@@ -175,13 +172,7 @@ contenu
          //daovideo.disable(video);
      }
      
-     /**
-      * recupere toutes les videos 
-      */
-     private void findVideo()
-     {
-         retObj.add((Video) daovideo.findAll());
-     }
+     
      
     }
 

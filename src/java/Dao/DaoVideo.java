@@ -103,7 +103,27 @@ public class DaoVideo implements Dao<Video>{
 
 @Override
     public Video update(Video obj) {
-        throw new RuntimeException("methode non implementer");
+        Video retObj = null;
+        String sql= " UPDATE " + table + " SET lien_video=?, " 
+                +" titre_video=? "
+                +" WHERE pk_id_video=? ";
+        
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+      
+            pstmt.setString(1,obj.getLien_video());
+            pstmt.setString(2,obj.getTitre_video());
+            pstmt.setInt(3,obj.getId_video());
+            
+      pstmt.executeUpdate();
+      
+      retObj=find(obj.getId_video());
+      
+      
+        } catch (SQLException ex) {
+            Logger.getLogger(DaoCommentaire.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return retObj;
     }
 
     @Override

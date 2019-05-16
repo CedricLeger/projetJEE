@@ -31,6 +31,10 @@ public class Commentaire {
         this.fk_id_video = fk_id_video;
     }
 
+    public Commentaire(int i, String pas_de_commentaire) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     
     
     
